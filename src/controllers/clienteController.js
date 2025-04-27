@@ -35,4 +35,5 @@ async function listarClientesPorId(req, res) {
 module.exports = {
   criarCliente,
   listarClientes,
+  listarClientesPorId,
 };
