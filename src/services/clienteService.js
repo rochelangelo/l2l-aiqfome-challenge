@@ -20,6 +20,29 @@ async function criarCliente({ nome, email }) {
   return novoCliente;
 }
 
+async function listarClientes() {
+  const clientes = await prisma.cliente.findMany({
+    include: {
+      favoritos: true,
+    },
+  });
+  return clientes;
+}
+
+async function listarClientesPorId(id) {
+  const clienteCadastrado = await prisma.cliente.findUnique({
+    where: { id: Number(id) },
+  });
+
+  if (!clienteCadastrado) {
+    throw new Error("Cliente não encontrado.");
+  }
+
+  return clienteCadastrado;
+}
+
 module.exports = {
   criarCliente,
+  listarClientes,
+  listarClientesPorId,
 };
