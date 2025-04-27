@@ -32,8 +32,22 @@ async function listarClientesPorId(req, res) {
   }
 }
 
+async function atualizarCliente(req, res) {
+  try {
+    const { id } = req.params;
+    const { nome, email } = req.body;
+
+    const cliente = await clienteService.atualizarCliente(id, { nome, email });
+
+    res.status(200).json(cliente);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   criarCliente,
   listarClientes,
   listarClientesPorId,
+  atualizarCliente,
 };

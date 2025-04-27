@@ -41,8 +41,26 @@ async function listarClientesPorId(id) {
   return clienteCadastrado;
 }
 
+async function atualizarCliente(id, { nome, email }) {
+  const clienteCadastrado = await prisma.cliente.findUnique({
+    where: { id: Number(id) },
+  });
+
+  if (!clienteCadastrado) {
+    throw new Error("Cliente não encontrado.");
+  }
+
+  const clienteAtualizado = await prisma.cliente.update({
+    where: { id: Number(id) },
+    data: { nome, email },
+  });
+
+  return clienteAtualizado;
+}
+
 module.exports = {
   criarCliente,
   listarClientes,
   listarClientesPorId,
+  atualizarCliente,
 };
