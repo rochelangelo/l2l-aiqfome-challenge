@@ -58,9 +58,26 @@ async function atualizarCliente(id, { nome, email }) {
   return clienteAtualizado;
 }
 
+async function deletarCliente(id) {
+  const clienteCadastrado = await prisma.cliente.findUnique({
+    where: { id: Number(id) },
+  });
+
+  if (!clienteCadastrado) {
+    throw new Error("Cliente não encontrado.");
+  }
+
+  await prisma.cliente.delete({
+    where: { id: Number(id) },
+  });
+
+  return { message: "Cliente deletado." };
+}
+
 module.exports = {
   criarCliente,
   listarClientes,
   listarClientesPorId,
   atualizarCliente,
+  deletarCliente,
 };

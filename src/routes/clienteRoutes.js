@@ -6,5 +6,6 @@ router.post("/", clienteController.criarCliente);
 router.get("/", clienteController.listarClientes);
 router.get("/:id", clienteController.listarClientesPorId);
 router.put("/:id", clienteController.atualizarCliente);
+router.delete("/:id", clienteController.deletarCliente);
 
 module.exports = router;
