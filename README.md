@@ -1,7 +1,7 @@
 # L2L Aiqfome Challenge – API de Clientes e Produtos Favoritos
 
 API RESTful desenvolvida para o desafio técnico da L2L Aiqfome (Magazine Luiza).
-Esta API permite o gerenciamento de clientes e da lissta dos produtos favoritos, produtos fornecido e integrados a uma API externa.
+Esta API permite o gerenciamento de clientes e da lista dos produtos favoritos, produtos fornecido e integrados a uma API externa.
 
 ---
 
@@ -68,7 +68,7 @@ PORT=3000
 
 **Atenção:** _Altere os dados de conexão do seu banco, de acordo com a configuração local._
 
-4. Execute as migrateions para criação do banco:
+4. Execute as migrations para criação do banco:
 
 ```bash
 npx prisma migrate dev --name init
@@ -125,4 +125,4 @@ Acesse a documentação completa de todos os endpoints:
 
 - Integração de produtos favoritos validado via [Fake Store API](https://fakestoreapi.com/docs).
 - Proteção de todas as rotas com token JWT.
-- Boas práticas de organização de códgio (camadas: Controller, Services, Routes, Middlewares).
+- Boas práticas de organização de código (camadas: Controller, Services, Routes, Middlewares).

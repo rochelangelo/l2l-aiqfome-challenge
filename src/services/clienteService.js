@@ -7,7 +7,9 @@ async function criarCliente({ nome, email }) {
   });
 
   if (clienteCadastrado) {
-    throw new Error("Email já cadastrado para outro cliente.");
+    const erro = new Error("Email já cadastrado para outro cliente.");
+    erro.statusCode = 400;
+    throw erro;
   }
 
   const novoCliente = await prisma.cliente.create({
@@ -35,7 +37,9 @@ async function listarClientesPorId(id) {
   });
 
   if (!clienteCadastrado) {
-    throw new Error("Cliente não encontrado.");
+    const erro = new Error("Cliente não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   return clienteCadastrado;
@@ -47,7 +51,9 @@ async function atualizarCliente(id, { nome, email }) {
   });
 
   if (!clienteCadastrado) {
-    throw new Error("Cliente não encontrado.");
+    const erro = new Error("Cliente não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   const clienteAtualizado = await prisma.cliente.update({
@@ -64,7 +70,9 @@ async function deletarCliente(id) {
   });
 
   if (!clienteCadastrado) {
-    throw new Error("Cliente não encontrado.");
+    const erro = new Error("Cliente não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   await prisma.cliente.delete({

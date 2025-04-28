@@ -8,7 +8,9 @@ async function adicionarProdutoFavorito(clienteId, produtoId) {
   });
 
   if (!clienteCadastrado) {
-    throw new Error("Cliente não encontrado.");
+    const erro = new Error("Cliente não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   const produtoFavoritado = await prisma.favorito.findFirst({
@@ -19,7 +21,9 @@ async function adicionarProdutoFavorito(clienteId, produtoId) {
   });
 
   if (produtoFavoritado) {
-    throw new Error("Produto já pertence aos favoritos.");
+    const erro = new Error("Produto já pertence aos favoritos.");
+    erro.statusCode = 400;
+    throw erro;
   }
 
   const response = await axios.get(
@@ -28,7 +32,9 @@ async function adicionarProdutoFavorito(clienteId, produtoId) {
   const produto = response.data;
 
   if (!produto || !produto.id) {
-    throw new Error("Produto não encontrado.");
+    const erro = new Error("Produto não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   const favoritado = await prisma.favorito.create({
@@ -51,7 +57,9 @@ async function listarFavoritosPorCliente(clienteId) {
   });
 
   if (!clienteCadastrado) {
-    throw new Error("Cliente não encontrado.");
+    const erro = new Error("Cliente não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   const favoritosCliente = await prisma.favorito.findMany({
@@ -67,7 +75,9 @@ async function removerFavorito(clienteId, produtoId) {
   });
 
   if (!clienteCadastrado) {
-    throw new Error("Cliente não encontrado.");
+    const erro = new Error("Cliente não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   const produtoFavoritado = await prisma.favorito.findFirst({
@@ -78,7 +88,9 @@ async function removerFavorito(clienteId, produtoId) {
   });
 
   if (!produtoFavoritado) {
-    throw new Error("Produto não está nos favoritos deste cliente.");
+    const erro = new Error("Produto não está nos favoritos deste cliente.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   await prisma.favorito.delete({

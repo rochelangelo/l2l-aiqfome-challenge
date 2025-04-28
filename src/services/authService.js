@@ -9,7 +9,9 @@ async function registrarUsuario({ email, senha }) {
   });
 
   if (usuarioCadastrado) {
-    throw new Error("Email já cadastrado para outro cliente.");
+    const erro = new Error("Email já cadastrado para outro usuario.");
+    erro.statusCode = 400;
+    throw erro;
   }
 
   const senhaHash = await bcrypt.hash(senha, 10);
@@ -30,13 +32,17 @@ async function loginUsuario({ email, senha }) {
   });
 
   if (!usuario) {
-    throw new Error("Usuário não encontrado.");
+    const erro = new Error("Usuário não encontrado.");
+    erro.statusCode = 404;
+    throw erro;
   }
 
   const senhaValida = await bcrypt.compare(senha, usuario.senha);
 
   if (!senhaValida) {
-    throw new Error("Senha inválida.");
+    const erro = new Error("Senha inválida.");
+    erro.statusCode = 401;
+    throw erro;
   }
 
   const token = jwt.sign(
