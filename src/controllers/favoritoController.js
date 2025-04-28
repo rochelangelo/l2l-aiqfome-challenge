@@ -31,8 +31,7 @@ async function listarFavoritosPorCliente(req, res) {
 
 async function removerFavorito(req, res) {
   try {
-    const { clienteId } = req.params;
-    const { produtoId } = req.body;
+    const { clienteId, produtoId } = req.params;
 
     const resultado = await favoritoService.removerFavorito(
       clienteId,
