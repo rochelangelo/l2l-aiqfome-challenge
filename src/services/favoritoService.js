@@ -45,6 +45,23 @@ async function adicionarProdutoFavorito(clienteId, produtoId) {
   return favoritado;
 }
 
+async function listarFavoritosPorCliente(clienteId) {
+  const clienteCadastrado = await prisma.cliente.findUnique({
+    where: { id: Number(clienteId) },
+  });
+
+  if (!clienteCadastrado) {
+    throw new Error("Cliente não encontrado.");
+  }
+
+  const favoritosCliente = await prisma.favorito.findMany({
+    where: { clienteId: Number(clienteId) },
+  });
+
+  return favoritosCliente;
+}
+
 module.exports = {
   adicionarProdutoFavorito,
+  listarFavoritosPorCliente,
 };

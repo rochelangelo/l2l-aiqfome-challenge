@@ -16,6 +16,20 @@ async function adicionarProdutoFavorito(req, res) {
   }
 }
 
+async function listarFavoritosPorCliente(req, res) {
+  try {
+    const { clienteId } = req.params;
+    const favoritosCliente = await favoritoService.listarFavoritosPorCliente(
+      clienteId
+    );
+
+    res.status(200).json(favoritosCliente);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   adicionarProdutoFavorito,
+  listarFavoritosPorCliente,
 };

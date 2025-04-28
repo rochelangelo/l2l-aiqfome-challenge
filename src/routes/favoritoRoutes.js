@@ -6,5 +6,9 @@ router.post(
   "/:clienteId/favoritos",
   favoritoController.adicionarProdutoFavorito
 );
+router.get(
+  "/:clienteId/favoritos",
+  favoritoController.listarFavoritosPorCliente
+);
 
 module.exports = router;
