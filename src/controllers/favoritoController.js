@@ -29,7 +29,24 @@ async function listarFavoritosPorCliente(req, res) {
   }
 }
 
+async function removerFavorito(req, res) {
+  try {
+    const { clienteId } = req.params;
+    const { produtoId } = req.body;
+
+    const resultado = await favoritoService.removerFavorito(
+      clienteId,
+      produtoId
+    );
+
+    res.status(200).json(resultado);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 module.exports = {
   adicionarProdutoFavorito,
   listarFavoritosPorCliente,
+  removerFavorito,
 };

@@ -61,7 +61,37 @@ async function listarFavoritosPorCliente(clienteId) {
   return favoritosCliente;
 }
 
+async function removerFavorito(clienteId, produtoId) {
+  const clienteCadastrado = await prisma.cliente.findUnique({
+    where: { id: Number(clienteId) },
+  });
+
+  if (!clienteCadastrado) {
+    throw new Error("Cliente não encontrado.");
+  }
+
+  const produtoFavoritado = await prisma.favorito.findFirst({
+    where: {
+      clienteId: Number(clienteId),
+      produtoId: Number(produtoId),
+    },
+  });
+
+  if (!produtoFavoritado) {
+    throw new Error("Produto não está nos favoritos deste cliente.");
+  }
+
+  await prisma.favorito.delete({
+    where: {
+      id: Number(produtoFavoritado.id),
+    },
+  });
+
+  return { message: "Produto removido dos  favoritos." };
+}
+
 module.exports = {
   adicionarProdutoFavorito,
   listarFavoritosPorCliente,
+  removerFavorito,
 };
