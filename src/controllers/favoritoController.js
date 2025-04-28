@@ -1,0 +1,21 @@
+const favoritoService = require("../services/favoritoService");
+
+async function adicionarProdutoFavorito(req, res) {
+  try {
+    const { clienteId } = req.params;
+    const { produtoId } = req.body;
+
+    const favoritado = await favoritoService.adicionarProdutoFavorito(
+      clienteId,
+      produtoId
+    );
+
+    res.status(201).json(favoritado);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+module.exports = {
+  adicionarProdutoFavorito,
+};
